@@ -18,7 +18,7 @@ function AppNavbar(props) {
   };
 
   return (
-    <Navbar color="dark" dark expend="sm" class="mb-5">
+    <Navbar color="dark" dark expend="sm" className="mb-5">
       <Container>
         <NavbarBrand href="/">ShoppingList</NavbarBrand>
         <NavbarToggler onClick={toggle} />

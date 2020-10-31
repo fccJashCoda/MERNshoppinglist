@@ -1,0 +1,22 @@
+.remove-btn {
+  margin-right: 1em;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+/* Note for later, this transition doens't trigger */
+.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 3000ms ease-in;
+}

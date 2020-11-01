@@ -26,14 +26,20 @@ function ItemModal() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addItem({ id: uuid(), name: input }));
+
+    const newItem = {
+      id: uuid(),
+      name: input,
+    };
+
+    dispatch(addItem(newItem));
     setInput('');
     toggle();
   };
 
   return (
     <div>
-      <Button onClick={toggle} color="dark">
+      <Button onClick={toggle} color="dark" style={{ marginBottom: '3rem' }}>
         Toggle Modal
       </Button>
       <Modal isOpen={isOpen} toggle={toggle}>
@@ -50,7 +56,12 @@ function ItemModal() {
                 placeholder="Add shopping item"
                 onChange={onChange}
               />
-              <Button type="submit" color="dark" style={{ marginTop: '1em' }}>
+              <Button
+                type="submit"
+                color="dark"
+                style={{ marginTop: '1em' }}
+                block
+              >
                 Add Item
               </Button>
             </FormGroup>

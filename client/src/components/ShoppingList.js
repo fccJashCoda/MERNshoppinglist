@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteItem } from '../actions/itemActions';
+import { getItems, deleteItem } from '../actions/itemActions';
 
 import ItemModal from './ItemModal';
 
 function ShoppingList(props) {
-  const { items } = useSelector((state) => state.item);
   const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.item);
+  const isLoading = useSelector((state) => state.item.loading);
+
+  useEffect(() => {
+    console.log('infintie loop checker');
+    if (!items.length && !isLoading) {
+      dispatch(getItems());
+      console.log('items ', items);
+    }
+  }, [items]);
 
   const onDeleteClick = (id) => {
     dispatch(deleteItem(id));
   };
 
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
   return (
     <Container>
       <ItemModal />

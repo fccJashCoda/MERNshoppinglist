@@ -2,7 +2,17 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-require('dotenv').config();
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.htmml'));
+  });
+} else {
+  require('dotenv').config();
+}
 
 const router = require('./routes/router');
 
@@ -19,15 +29,6 @@ app.use('/api/items', router.items);
 app.get('/', (req, res, next) => {
   res.json({ msg: 'Not yet implemented' });
 });
-
-// Server static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.htmml'));
-  });
-}
 
 // Server
 mongoose

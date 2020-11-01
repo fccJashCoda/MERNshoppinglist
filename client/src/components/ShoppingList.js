@@ -4,7 +4,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuid } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem, deleteItem } from '../actions/itemActions';
-import PropTypes from 'prop-types';
+
+import ItemModal from './ItemModal';
 
 function ShoppingList(props) {
   const { items } = useSelector((state) => state.item);
@@ -23,6 +24,7 @@ function ShoppingList(props) {
 
   return (
     <Container>
+      <ItemModal />
       <Button
         color="dark"
         style={{ marginBottom: '3rem' }}

@@ -2,27 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuid } from 'uuid';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem, deleteItem } from '../actions/itemActions';
+import PropTypes from 'prop-types';
 
-function ShoppingList() {
-  const initialState = [
-    { id: uuid(), name: 'Eggs' },
-    { id: uuid(), name: 'Milk' },
-    { id: uuid(), name: 'Steak' },
-    { id: uuid(), name: 'Water' },
-  ];
-  const [items, setItems] = useState(initialState);
+function ShoppingList(props) {
+  const { items } = useSelector((state) => state.item);
+  const dispatch = useDispatch();
+
+  const onAddClick = () => {
+    const name = prompt('Enter Item');
+    if (name) {
+      dispatch(addItem({ id: uuid(), name }));
+    }
+  };
+
+  const onDeleteClick = (id) => {
+    dispatch(deleteItem(id));
+  };
 
   return (
     <Container>
       <Button
         color="dark"
         style={{ marginBottom: '3rem' }}
-        onClick={() => {
-          const name = prompt('Enter Item');
-          if (name) {
-            setItems([...items, { id: uuid(), name }]);
-          }
-        }}
+        onClick={onAddClick}
       >
         Add Item
       </Button>
@@ -35,9 +39,7 @@ function ShoppingList() {
                   className="remove-btn"
                   color="danger"
                   size="sm"
-                  onClick={() =>
-                    setItems(items.filter((item) => item.id !== id))
-                  }
+                  onClick={() => onDeleteClick(id)}
                 >
                   &times;
                 </Button>

@@ -19,11 +19,15 @@ const itemReducer = (state = initialState, action) => {
         loading: false,
       };
     case ADD_ITEM:
-      return { ...state, items: [...state.items, action.payload] };
+      return {
+        ...state,
+        items: [action.payload, ...state.items],
+        loading: false,
+      };
     case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
+        items: state.items.filter((item) => item._id !== action.payload),
       };
     case ITEMS_LOADING:
       return {

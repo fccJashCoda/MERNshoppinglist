@@ -28,7 +28,6 @@ function ItemModal() {
     e.preventDefault();
 
     const newItem = {
-      id: uuid(),
       name: input,
     };
 

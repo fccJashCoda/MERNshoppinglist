@@ -19,26 +19,24 @@ function ShoppingList(props) {
     }
   }, [items]);
 
+  console.log(items);
   const onDeleteClick = (id) => {
     dispatch(deleteItem(id));
   };
 
-  if (isLoading) {
-    return <h1>Loading</h1>;
-  }
   return (
     <Container>
       <ItemModal />
       <ListGroup>
         <TransitionGroup className="shopping-list">
-          {items.map(({ id, name }) => (
-            <CSSTransition key={id} timeout={250} classNames="fade">
+          {items.map(({ _id, name }) => (
+            <CSSTransition key={_id} timeout={250} classNames="fade">
               <ListGroupItem>
                 <Button
                   className="remove-btn"
                   color="danger"
                   size="sm"
-                  onClick={() => onDeleteClick(id)}
+                  onClick={() => onDeleteClick(_id)}
                 >
                   &times;
                 </Button>

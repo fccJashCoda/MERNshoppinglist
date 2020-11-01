@@ -11,18 +11,23 @@ export const getItems = () => (dispatch) => {
   });
 };
 
-export const addItem = (payload) => {
-  return {
-    type: ADD_ITEM,
-    payload,
-  };
+export const addItem = (payload) => (dispatch) => {
+  axios.post('/api/items', { ...payload }).then((res) => {
+    console.log('res.data', res.data);
+    dispatch({
+      type: ADD_ITEM,
+      payload: res.data,
+    });
+  });
 };
 
-export const deleteItem = (id) => {
-  return {
-    type: DELETE_ITEM,
-    payload: id,
-  };
+export const deleteItem = (id) => (dispatch) => {
+  axios.delete(`/api/items/${id}`).then((res) => {
+    dispatch({
+      type: DELETE_ITEM,
+      payload: id,
+    });
+  });
 };
 
 export const setItemsLoading = () => {

@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -19,9 +20,19 @@ app.get('/', (req, res, next) => {
   res.json({ msg: 'Not yet implemented' });
 });
 
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.htmml'));
+  });
+}
+
 // Server
 mongoose
-  .connect(process.env.MONGOURI, {
+  // .connect(process.env.MONGOURI, {
+  .connect(process.env.MONGOCLOUD, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: true,

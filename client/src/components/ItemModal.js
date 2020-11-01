@@ -11,7 +11,6 @@ import {
 } from 'reactstrap';
 import { addItem } from '../actions/itemActions';
 import { useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 
 function ItemModal() {
   const [isOpen, setIsOpen] = useState(false);

@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
     name,
   });
 
-  newItem.save().then((item) => res.json({ status: 'creacted', item }));
+  newItem.save().then((item) => res.json(item));
 });
 
 // @route   DELETE api/items

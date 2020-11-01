@@ -17,7 +17,7 @@ function ShoppingList(props) {
       dispatch(getItems());
       console.log('items ', items);
     }
-  }, [items]);
+  }, []);
 
   console.log(items);
   const onDeleteClick = (id) => {

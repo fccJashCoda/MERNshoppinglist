@@ -17,7 +17,6 @@ function ShoppingList(props) {
     }
   }, []);
 
-  console.log(items);
   const onDeleteClick = (id) => {
     dispatch(deleteItem(id));
   };

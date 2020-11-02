@@ -3,14 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-if (!process.env.NODE_ENV === 'production') {
-  require('dotenv').config();
-}
-
 const router = require('./routes/router');
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+if (app.get('env') === 'development') require('dotenv').config();
 
 // Middleware
 app.use(morgan('tiny'));
@@ -19,9 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Router
 app.use('/api/items', router.items);
-app.get('/', (req, res, next) => {
-  res.json({ msg: 'Not yet implemented' });
-});
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

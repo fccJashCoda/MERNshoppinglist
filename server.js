@@ -3,6 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
+const router = require('./routes/router');
+
+const app = express();
+const port = process.env.PORT || 5000;
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
@@ -13,11 +18,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   require('dotenv').config();
 }
-
-const router = require('./routes/router');
-
-const app = express();
-const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(morgan('tiny'));

@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 // Router
 app.use('/api/items', router.items);
 app.use('/api/users', router.users);
+app.use('/api/auth', router.auth);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
@@ -34,8 +35,8 @@ app.use((req, res, next) => {
 
 // Server
 mongoose
-  .connect(process.env.MONGOURI, {
-    // .connect(process.env.MONGOCLOUD, {
+  // .connect(process.env.MONGOURI, { // use local db when testing to prevent useless cloud spam
+  .connect(process.env.MONGOCLOUD, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: true,

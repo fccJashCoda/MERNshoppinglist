@@ -12,10 +12,8 @@ function ShoppingList(props) {
   const isLoading = useSelector((state) => state.item.loading);
 
   useEffect(() => {
-    console.log('infintie loop checker');
     if (!items.length && !isLoading) {
       dispatch(getItems());
-      console.log('items ', items);
     }
   }, []);
 

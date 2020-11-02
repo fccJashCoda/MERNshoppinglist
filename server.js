@@ -3,21 +3,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
+if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config();
+}
+
 const router = require('./routes/router');
 
 const app = express();
 const port = process.env.PORT || 5000;
-
-// Serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.htmml'));
-  });
-} else {
-  require('dotenv').config();
-}
 
 // Middleware
 app.use(morgan('tiny'));
@@ -29,6 +22,15 @@ app.use('/api/items', router.items);
 app.get('/', (req, res, next) => {
   res.json({ msg: 'Not yet implemented' });
 });
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.htmml'));
+  });
+}
 
 // Server
 mongoose

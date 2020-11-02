@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Router
 app.use('/api/items', router.items);
+app.use('/api/users', router.users);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
@@ -27,10 +28,14 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+app.use((req, res, next) => {
+  res.status(400).send('400 - Bad Request');
+});
+
 // Server
 mongoose
-  // .connect(process.env.MONGOURI, {
-  .connect(process.env.MONGOCLOUD, {
+  .connect(process.env.MONGOURI, {
+    // .connect(process.env.MONGOCLOUD, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: true,

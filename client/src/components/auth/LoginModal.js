@@ -62,8 +62,8 @@ function LoginModal() {
 
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>Login</ModalHeader>
-        {msg ? <Alert color="danger">{msg}</Alert> : null}
         <ModalBody>
+          {msg ? <Alert color="danger">{msg}</Alert> : null}
           <Form onSubmit={onSubmit}>
             <FormGroup>
               <Label for="email">Email</Label>

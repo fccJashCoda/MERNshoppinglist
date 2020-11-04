@@ -6,12 +6,16 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Container,
 } from 'reactstrap';
+import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
+import Logout from './auth/Logout';
+import { useSelector } from 'react-redux';
 
 function AppNavbar(props) {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -24,9 +28,20 @@ function AppNavbar(props) {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="https://github.com/fccJashCoda/">GitHub</NavLink>
-            </NavItem>
+            {!isAuthenticated ? (
+              <>
+                <NavItem>
+                  <RegisterModal />
+                </NavItem>
+                <NavItem>
+                  <LoginModal />
+                </NavItem>
+              </>
+            ) : (
+              <NavItem>
+                <Logout />
+              </NavItem>
+            )}
           </Nav>
         </Collapse>
       </Container>

@@ -10,7 +10,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  token: localStorage.getItem(''),
+  token: localStorage.getItem('token'),
   isAuthenticated: false,
   isLoading: false,
   user: null,
@@ -32,6 +32,7 @@ const authReducer = (state = initialState, action) => {
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
         ...action.payload,
@@ -44,9 +45,10 @@ const authReducer = (state = initialState, action) => {
     case REGISTER_FAIL:
       localStorage.removeItem('token');
       return {
-        ...initialState,
-        isAuthenticated: false,
         token: null,
+        isAuthenticated: false,
+        isLoading: false,
+        user: null,
       };
     default:
       return state;

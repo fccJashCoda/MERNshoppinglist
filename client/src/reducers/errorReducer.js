@@ -16,7 +16,9 @@ const errorReducer = (state = initialState, action) => {
       };
     case CLEAR_ERRORS:
       return {
-        ...initialState,
+        msg: {},
+        status: null,
+        id: null,
       };
     default:
       return state;

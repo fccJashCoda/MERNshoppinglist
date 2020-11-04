@@ -35,9 +35,9 @@ app.use((req, res, next) => {
 
 // Server
 mongoose
-  .connect(process.env.MONGOURI, {
-    // use local db when testing to prevent useless cloud spam
-    // .connect(process.env.MONGOCLOUD, {
+  // .connect(process.env.MONGOURI, {
+  // use local db when testing to prevent useless cloud spam
+  .connect(process.env.MONGOCLOUD, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: true,
